@@ -6,7 +6,6 @@
     color: white;
     background-color: #013914;
     transition: 0.5s all ease;
-    position: sticky;
     top: 0;
 
     &.active {
@@ -41,6 +40,7 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                z-index: 1000;
                 cursor: pointer;
                 position: relative;
 
@@ -53,6 +53,7 @@
 
                 .options {
                     position: absolute;
+                    z-index: 10;
                     top: 50px;
                     right: 0;
                     padding: 20px;
