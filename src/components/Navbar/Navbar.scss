@@ -5,7 +5,6 @@
     align-items: center;
     color: white;
     background-color: #013914;
-    padding: 0 90px;
     transition: 0.5s all ease;
     position: sticky;
     top: 0;
@@ -16,11 +15,10 @@
     }
 
     .container {
-        width: 100%;
+        width: 1400px;
         display: flex;
         justify-content: space-between;
         padding: 20px 0;
-
         .logo {
             font-size: 34px;
             font-weight: bold;
