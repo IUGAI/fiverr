@@ -3,6 +3,8 @@ import './Slide.scss'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+
+
 const responsive = {
     superLargeDesktop: {
         // the naming can be any, depends on you.
@@ -23,13 +25,11 @@ const responsive = {
     }
 };
 
-export default function Slide() {
+
+export default function Slide({children}) {
     return (
-        <Carousel responsive={responsive}>
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
+        <Carousel ssr responsive={responsive}>
+              {children}
         </Carousel>
     )
 }
