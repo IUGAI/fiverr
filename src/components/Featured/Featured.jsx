@@ -26,6 +26,7 @@ function Featured() {
           </div>
           <div className="right">
             <img src="./img/man.png" alt="" />
+            <div className="circle"></div>
           </div>
         </div>
       </div>
