@@ -1,42 +1,50 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Gigs.scss";
 import { gigs } from "../../data";
 import GigCard from "../../components/gigCard/GigCard";
 import { useQuery } from '@tanstack/react-query';
 import newRequset from "../../utils/newRequest";
+import { useLocation } from "react-router-dom";
 
 function Gigs() {
-
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['gigs'],
-    queryFn: () =>
-      newRequset.get('/gigs').then((res)=> {
-        return res.data
-      })
-  }
-  )
-
-
-
   const [sort, setSort] = useState("sales");
   const [open, setOpen] = useState(false);
   const minRef = useRef();
   const maxRef = useRef();
+
+  const { search } = useLocation();
+
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["gigs"],
+    queryFn: () =>
+      newRequset
+        .get(
+          `/gigs${search}`
+        )
+        .then((res) => {
+          return res.data;
+        }),
+  });
+
+  console.log(data);
 
   const reSort = (type) => {
     setSort(type);
     setOpen(false);
   };
 
+  useEffect(() => {
+    refetch();
+  }, [sort]);
+
   const apply = () => {
-    console.log(minRef.current.value)
-    console.log(maxRef.current.value)
-  }
+    refetch();
+  };
 
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">Liverr  Graphics & Design </span>
+        <span className="breadcrumbs">Liverr Graphics & Design </span>
         <h1>AI Artists</h1>
         <p>
           Explore the boundaries of art and technology with Liverrs AI artists
@@ -67,13 +75,14 @@ function Gigs() {
           </div>
         </div>
         <div className="cards">
-          { isLoading ? "loading" : error ? "something was wrong" : data.map((gig) => (
-            <GigCard key={gig._id} item={gig} />
-          ))}
+          {isLoading
+            ? "loading"
+            : error
+              ? "Something went wrong!"
+              : data.map((gig) => <GigCard key={gig._id} item={gig} />)}
         </div>
       </div>
     </div>
   );
 }
-
 export default Gigs;
